@@ -25,21 +25,34 @@ def generate_indices(start: int, step: int, size: int, limit: int) -> int:
         indices.append(start)
     return list(map(lambda x: x % limit, indices))
 
-def traverse(pattern: List) -> int:
+def traverse(pattern: List, indices: List, step: int) -> int:
     """Traverses the pattern and counts number of trees encountered
 
     :param pattern: list of rows containing the pattern in each row
+    :param indices: indices to check for the pattern
+    :param step: number of rows to move down by
     :return: number of trees until we reach the bottom of the map
     """
-    indices = generate_indices(0, 3, len(pattern), len(pattern[0]))
-    target_indices = []
     trees, spaces = 0, 0
+    pattern = pattern[::step]
+    print(pattern[0])
+    indices = indices[:len(pattern)]
     for row, index in zip(pattern, indices):
         trees += 1 if row[index] == '#' else 0
-        if row[index] == '#':
-            target_indices.append(index)
         spaces += 1 if row[index] != '#' else 0
     return trees
 
-input_data = parse_input(input_file)[1:]
-print(traverse(input_data))
+input_data = parse_input(input_file)
+steps = [
+    (1, 1),
+    (3, 1),
+    (5, 1),
+    (7, 1),
+    (1, 2)
+]
+
+prod = 1
+for step in steps:
+    res = traverse(input_data[step[1]:], generate_indices(0, step[0], len(input_data), len(input_data[0])), step[1])
+    prod *= res
+print(prod)

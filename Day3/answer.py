@@ -6,7 +6,7 @@ def parse_input(filepath: str) -> List[str]:
     """Parses list of input args from a text file
 
     :param filepath: path to input file
-    :return: dictionary of 'password': (character, lower limit, upper limit) for password requirements 
+    :return: list of inputs 
     """
     return [i.strip() for i in open(filepath, "r")]
 

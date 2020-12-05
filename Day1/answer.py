@@ -6,9 +6,8 @@ def parse_input(filepath: str) -> List:
     """Parses list of input args from a text file
 
     :param filepath: path to input file
-    :return: list of inputs of arbitrary type 
+    :return: list of inputs
     """
-    # TODO: move this to runner.py
     return [i.strip() for i in open(filepath, "r")]
 
 def find_two_sum(i: List[int], n: int) -> int:

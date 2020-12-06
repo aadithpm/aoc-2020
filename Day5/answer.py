@@ -30,7 +30,7 @@ def binary_search(seat_str: str, high: int, shifts: Set[str]) -> int:
 def calc_seat_number(row: int, col: int) -> int:
     return row * 8 + col
 
-def find_seat_id(seat_str: str, seat_number_fn: Callable[[int, int], int]) -> int:
+def find_seat_id(seat_str: str, search: Callable[[str, int, Set[str]], int], seat_number_fn: Callable[[int, int], int]) -> int:
     """Find seat ID from a seat string
 
     :param seat_str: seat string made up of 'F', 'B', 'L' or 'R'
@@ -42,7 +42,7 @@ def find_seat_id(seat_str: str, seat_number_fn: Callable[[int, int], int]) -> in
 
 input_data = parse_input(input_file)
 
-seat_ids = list(map(lambda x: find_seat_id(x, calc_seat_number), input_data))
+seat_ids = list(map(lambda x: find_seat_id(x, binary_search, calc_seat_number), input_data))
 first, last = min(seat_ids), max(seat_ids)
 print(last)
 print(set(range(first, last)) - set(seat_ids))
